@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT" description="Navigate To Component Event" >
+	<aura:attribute name="cmpName" type="String" required="true"/>
+	<aura:attribute name="recordId" type="String"/>
+	<aura:attribute name="state" type="Object"/>
+</aura:event>

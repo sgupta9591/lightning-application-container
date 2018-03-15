@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="Init Data Service">
+	<aura:attribute name="params" type="Object"/>
+</aura:event>

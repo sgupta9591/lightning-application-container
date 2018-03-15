@@ -1,0 +1,35 @@
+<aura:component extends="c:ApplicationBase" extensible="true" implements="force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,flexipage:availableForAllPageTypes" access="global">
+
+	<!--Attributes-->
+	<aura:attribute name="componentName" type="String" access="public" default="Applicants"/>
+	<aura:attribute name="componentConfig" type="Object" access="public"/>
+	<aura:attribute name="componentInstance" type="Aura.Component" access="public"/>
+	<aura:attribute name="componentsHistroyStack" type="Object[]" access="public"/>
+	<aura:attribute name="showSpinner" type="Boolean" default="false" access="public"/>
+	<aura:attribute name="location" type="String" access="public"/>
+
+	<!--Handlers-->
+   	<aura:handler name="init" value="{!this}" action="{!c.initContainerComponent}"/>
+
+   	<!--Component Event Handlers-->
+	<aura:handler name="navigateToComponentEvent" event="c:NavigateToComponent" action="{!c.navigateToComponent}" />
+	<aura:handler name="navigateToPreviousComponentEvent" event="c:NavigateToPreviousComponent" action="{!c.navigateToPreviousComponent}"/>
+	<aura:handler name="initDataServiceEvent" event="c:InitDataService" action="{!c.initDataService}"/>
+
+	<!--Application Event Handlers-->
+	<aura:handler event="c:ShowHideSpinner" action="{!c.showHideSpinner}"/>
+	<aura:handler event="c:RefreshView" action="{!c.refreshView}"/>
+	<aura:handler event="aura:locationChange" action="{!c.locationChangeHandler}"/>
+	<aura:handler event="aura:systemError" action="{!c.handleError}"/>
+	
+	<!--Content-->
+	<div class="slds-container bg-transparent">
+		{!v.componentInstance}
+	</div>
+
+	<!--Spinner-->
+	<div class="{!if(!v.showSpinner,'slds-hide','')}">
+        <lightning:spinner variant="brand" size="large" alternativeText="Loading..."/>
+    </div>
+
+</aura:component>

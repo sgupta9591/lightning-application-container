@@ -1,0 +1,44 @@
+<aura:component extends="c:ComponentBase" Controller="DataService_CC">
+
+	<!--Methods-->
+	<aura:method name="getRecord" action="{!c.getRecordJS}">
+		<aura:attribute name="params" type="Object"/>
+	</aura:method>
+
+	<aura:method name="getRecords" action="{!c.getRecordsJS}">
+		<aura:attribute name="params" type="Object"/>
+	</aura:method>
+
+	<aura:method name="getFieldSetData" action="{!c.getFieldSetDataJS}">
+		<aura:attribute name="params" type="Object"/>
+	</aura:method>
+
+	<aura:method name="createRecord" action="{!c.createRecordJS}">
+		<aura:attribute name="params" type="Object"/>
+	</aura:method>
+
+	<aura:method name="updateRecord" action="{!c.updateRecordJS}">
+		<aura:attribute name="params" type="Object"/>
+	</aura:method>
+
+	<aura:method name="deleteRecord" action="{!c.deleteRecordJS}">
+		<aura:attribute name="params" type="Object"/>
+	</aura:method>
+
+	<aura:method name="getRecordTypes" action="{!c.getRecordTypesJS}">
+		<aura:attribute name="params" type="Object"/>
+	</aura:method>
+
+	<aura:method name="getRecordTypesMap" action="{!c.getRecordTypesMapJS}">
+		<aura:attribute name="params" type="Object"/>
+	</aura:method>
+ 	
+ 	<aura:method name="getPicklistValues" action="{!c.getPicklistValuesJS}">
+		<aura:attribute name="params" type="Object"/>
+	</aura:method>
+
+	<aura:method name="executeQuery" action="{!c.executeQueryJS}">
+		<aura:attribute name="params" type="Object"/>
+	</aura:method>
+	
+</aura:component>

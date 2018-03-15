@@ -1,0 +1,40 @@
+<aura:component extends="c:ComponentBase" extensible="true" abstract="true">
+
+	<!--Attributes-->
+	<aura:attribute name="recordId" type="String" access="public"/>
+	<aura:attribute name="state" type="Object" access="public"/>
+
+	<!--Header Attributes-->
+	<aura:attribute name="enableHeader" type="Boolean" default="false" access="public"/>
+	<aura:attribute name="title" type="String" default="" access="public"/>
+	<aura:attribute name="subtitle" type="String" default="" access="public"/>
+	<aura:attribute name="enableBack" type="Boolean" default="false" access="public"/>
+	<aura:attribute name="showBackground" type="Boolean" default="true" access="public"/>
+	<aura:attribute name="actions" type="Object[]" access="public"/>
+
+	<!--Handlers-->
+   	<aura:handler name="init" value="{!this}" action="{!c.initBaseComponent}"/>
+
+	<!--Events-->
+	<aura:registerEvent name="navigateToComponentEvent" type="c:NavigateToComponent"/>
+	<aura:registerEvent name="navigateToPreviousComponentEvent" type="c:NavigateToPreviousComponent"/>
+	<aura:registerEvent name="initDataServiceEvent" type="c:InitDataService"/>
+	<aura:registerEvent name="showHideSpinnerEvent" type="c:ShowHideSpinner"/>
+	<aura:registerEvent name="refreshViewEvent" type="c:RefreshView"/>
+
+	<!--Content-->
+	<div class="container">
+
+	  	<!--Header-->
+		<aura:if isTrue="{!v.enableHeader}">
+			<c:PageHeader title="{!v.title}" subtitle="{!v.subtitle}" enableBack="{!v.enableBack}" showBackground="{!v.showBackground}" actions="{!v.actions}"/> 
+		</aura:if>
+
+		<!--Body-->
+		<div class="slds-container"> 
+			{!v.body} 
+		</div>
+
+	</div>
+
+</aura:component>

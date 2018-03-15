@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="Navigate To Previous Component Event" >
+	<aura:attribute name="state" type="Object"/>
+</aura:event>

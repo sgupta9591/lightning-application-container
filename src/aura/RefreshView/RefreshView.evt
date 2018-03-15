@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Refresh View" >
+	<aura:attribute name="cmpName" type="String"/>
+</aura:event>

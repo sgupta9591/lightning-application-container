@@ -1,0 +1,16 @@
+.THIS .bg-white{
+    background-color: white;
+}
+.THIS .bg-transparent{
+    background: transparent;
+}
+.THIS .border-none{
+    border:none;
+}
+.THIS .slds-page-header{
+	padding: 0.5rem 1rem !important;
+}
+.THIS .slds-card{
+	border: 1px solid rgb(221, 219, 218) !important;
+	padding: 0px 3px !important;
+}

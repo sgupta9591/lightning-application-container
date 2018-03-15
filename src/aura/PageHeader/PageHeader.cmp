@@ -1,0 +1,55 @@
+<aura:component extends="c:ApplicationBase">
+	
+	<!--Content-->
+	<div class="{!'slds-page-header border-none ' + if(v.showBackground,'','slds-p-vertical_x-small bg-transparent')}">
+	  	<div class="slds-grid slds-wrap">
+
+		  	<!--Header Details-->
+	      	<div class="slds-media slds-no-space slds-grow slds-media_center">
+
+	      		<!--Navigation-->
+	      		<aura:if isTrue="{!v.enableBack}">
+	      			<div class="slds-media__figure">
+        				<div class="slds-icon_container">
+							<nav role="navigation" aria-label="Breadcrumbs"> 
+							  	<ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+							   	 	<li class="slds-breadcrumb__item slds-text-title_caps">
+							   	 		<a href="javascript:void(0);" onclick="{!c.navigateToPreviousComponent}">
+							   	 			<span class="slds-button__icon">
+									  			<lightning:icon iconName="action:back" size="x-small"/>
+											</span>
+							   	 		</a>
+							   	 	</li>
+							  	</ol>
+						  	</nav>
+					  	</div>
+					</div>
+			  	</aura:if>
+
+			  	<!--Title and subtitle-->
+		        <div class="slds-media__body">
+		        	<aura:if isTrue="{!v.title}">
+	          			<div class="slds-text-heading_small" title="{!v.title}">{!v.title}</div>
+	          		</aura:if>
+	          		<aura:if isTrue="{!v.subtitle}">
+	          			<p class="slds-text-body_small slds-line-height_reset">{!v.subtitle}</p>
+	          		</aura:if>
+		        </div>
+
+	      	</div>
+
+			<!--Header Actions-->
+	    	<aura:if isTrue="{!and(v.actions != null, v.actions.length)}">
+		    	<div class="slds-float_right">
+			      	<aura:iteration items="{!v.actions}" var="action">
+			      		<a class="slds-p-horizontal_xx-small" href="javascript:void(0);" data-actionId="{!action.actionId}" onclick="{!c.performAction}">
+	                        <ui:button class="slds-button appui-button" label="{!action.label}" disabled="{!action.disabled}"/>
+	                    </a>
+			      	</aura:iteration>
+		      	</div>
+			</aura:if>
+			
+	  	</div>			
+	</div>
+
+</aura:component>
