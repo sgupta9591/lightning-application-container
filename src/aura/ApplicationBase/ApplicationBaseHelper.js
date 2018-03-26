@@ -130,10 +130,10 @@
     },
     getAuraCallback: function(callback, context){ 
         var args = this.rest(arguments, 2);
-        callback = this.callback(callback, context); 
-        return $A.getCallback(this.callback(function(){ 
+        callback = this.callback(callback, context);
+        return this.auraCallback(function(){ 
             callback.apply(null, args.concat(this.rest(arguments))); 
-        }));
+        });
     },
     setTimeout: function(callback, time, context, cmp){ 
         this.delay(this.getAuraCallback(callback, context, cmp), time || 0);

@@ -29,6 +29,9 @@
     hasOwnProperty: function(obj, path){ return Object.prototype.hasOwnProperty.call(obj, path); },
     property: function(key) { return (obj) => { return this.isObject(obj) && this.isString(key) ? obj[key] : null; } },
     propertyOf: function(obj) { return (key) => { return this.isObject(obj) && this.isString(key) ? obj[key] : null; } },
+    put: function(obj, value, key){ if(this.isObject(obj) && this.isString(key)) obj[key] = value; return obj; },
+    push: function(array, value){ if(this.isArray(array) && !this.isUndefinedOrNull(value)) array.push(value); return array; },
+    ensureArray: function(list){ return (this.isArray(list) ? list : (!this.isUndefinedOrNull(list) ? [list] : [])); },
 
     isArrayLike: function(obj){
         if(this.isArray(obj)) return true;
@@ -38,8 +41,11 @@
     },
     callback: function(func, context){
         if(!this.isFunction(func)) func = this.identity;
-        if(this.isUndefinedOrNull(context)) context = this;
+        if(!this.isObject(context)) context = this;
         return function(){ return func.apply(context, arguments); };
+    },
+    auraCallback: function(func, context){
+        return $A.getCallback(this.callback(func, context));
     },
     each: function(obj, iteratee, context){
         iteratee = this.callback(iteratee, context);
@@ -106,8 +112,11 @@
         return obj;
     },
     isMatch: function(obj, attrs) {
-        if(!this.isObject(obj)) return false;
-        return this.find(attrs, (value, key) => { return value === obj[key]; });
+        if(!this.isObject(obj) || !this.isObject(attrs)) return false;
+        for(var i = 0, keys = this.keys(attrs), length = keys.length; i < length; i++) {
+            var key = keys[i]; if(!(key in obj) || obj[key] !== attrs[key]) return false; 
+        }
+        return true;
     },
     partial: function(func) {
         var rest = this.rest(arguments, 1); func = this.callback(func);
@@ -161,6 +170,9 @@
             if(!this.isArrayLike(value)) { results.push(value); return results; }
             return this.flatten.apply(null, results.concat(this.rest(value)));
         }, []);
+    },
+    compact: function(array) {
+        return this.filter(array, Boolean);
     },
     union: function(){
         return this.unique(this.flatten(arguments));
@@ -229,12 +241,6 @@
     wrapper: function(obj){
         this._wrapped = obj;
     },
-    put: function(obj, value, key){
-        if(this.isObject(obj) && this.isString(key)) obj[key] = value; return obj;
-    },
-    push: function(array, value){ 
-        if(this.isArray(array) && !this.isUndefinedOrNull(value)) array.push(value); return array;
-    },
 
     //promise utility methods
     promise: function(callback, context){
@@ -245,7 +251,16 @@
         defer.promise = this.promise((resolve, reject) => { 
             defer.resolve = resolve; defer.reject = reject; 
         });
+        defer.promise = this.wrapPromise(defer.promise);
         return defer;
+    },
+    wrapPromise: function(promise){
+        promise = { original: promise, originalThen: promise.then };
+        promise.then = this.auraCallback(function(){ 
+            var nextPromise = promise.originalThen.apply(promise.original, this.map(arguments, this.callback));
+            return this.wrapPromise(nextPromise);
+        });
+        return promise;
     },
     deferredWithValue: function(value){
         var defer = this.deferred(); defer.resolve(value); 

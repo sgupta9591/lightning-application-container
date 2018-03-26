@@ -9,7 +9,7 @@ A Salesforce lightning ui framework to build lightning applications faster. It p
 ### Aura Components
 * [Component Base](https://github.com/sgupta9591/lightning-application-container/tree/master/src/aura/ComponentBase) - provides basic javascript helper utility methods.
 * [Application Base](https://github.com/sgupta9591/lightning-application-container/tree/master/src/aura/ApplicationBase) - provides navigation and data service.
-* [Application Container](/../../tree/master/src/aura/ApplicationContainer) - provides navigation functionality.
+* [Application Container](https://github.com/sgupta9591/lightning-application-container/tree/master/src/aura/ApplicationContainer) - provides navigation functionality.
 * [Data Service](https://github.com/sgupta9591/lightning-application-container/tree/master/src/aura/DataService) - provides apex utility methods.
 * [Page Header](https://github.com/sgupta9591/lightning-application-container/tree/master/src/aura/PageHeader) - provides a page header that consists of a title, subtitle, back button and action buttons.
 * [Init Data Service Event](https://github.com/sgupta9591/lightning-application-container/tree/master/src/aura/InitDataService) - to initialize data service component. 
@@ -24,10 +24,10 @@ A Salesforce lightning ui framework to build lightning applications faster. It p
 * [Metadata Utility](https://github.com/sgupta9591/lightning-application-container/blob/master/src/classes/MetadataServiceUtility.cls) - provides metadata utility methods and it is used by data service utility.
 
 ### Examples
-See examples [here](https://lighting-force-developer-edition.ap5.force.com).
+See examples [here](https://sumit-gupta-developer-edition.ap5.force.com/examples).
 
 ### Installation 
-Install the Lightning Application Container unmanaged package [here](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t7F000003n5J7).
+Install the Lightning Application Container unmanaged package [here](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t7F000004ECnq).
 
 ### Contributors
 [Sumit Gupta](https://github.com/sgupta9591),  Senior Technical Consultant at Salesforce
