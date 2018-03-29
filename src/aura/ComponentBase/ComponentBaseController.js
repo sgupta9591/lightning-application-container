@@ -1,7 +1,7 @@
 ({
 	initComponentBase : function(cmp, event, helper) {
 		//bind all helper methods to helper object context
-		var skippableMethods = ["wrapper", "callback"];
+		var skippableMethods = ["wrapper", "callback", "auraCallback"];
 		var cchelper = cmp.getConcreteComponent().helper;
 		helper.each(helper.functions(helper), (name) => { 
 			var func = helper[name];
@@ -30,7 +30,7 @@
 		});
 		//method to break chaining 
 		if(!helper.wrapper.prototype.value){
-			helper.wrapper.prototype.value = () => { 
+			helper.wrapper.prototype.value = function(){ 
 				return this._wrapped; 
 			};
 		}

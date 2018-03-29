@@ -1,4 +1,4 @@
-<aura:component extends="c:ComponentBase" Controller="DataService_CC">
+<aura:component extends="c:ApplicationBase" Controller="DataService_CC">
 
 	<!--Methods-->
 	<aura:method name="getRecord" action="{!c.getRecordJS}">

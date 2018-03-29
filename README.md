@@ -27,7 +27,7 @@ A Salesforce lightning ui framework to build lightning applications faster. It p
 See examples [here](https://sumit-gupta-developer-edition.ap5.force.com/examples).
 
 ### Installation 
-Install the Lightning Application Container unmanaged package [here](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t7F000004ECnq).
+Install the Lightning Application Container unmanaged package [here](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t7F000004EEDg).
 
 ### Contributors
 [Sumit Gupta](https://github.com/sgupta9591),  Senior Technical Consultant at Salesforce

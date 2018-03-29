@@ -41,11 +41,16 @@
     },
     callback: function(func, context){
         if(!this.isFunction(func)) func = this.identity;
+        if(func.bound || func.aurabound) return func; 
         if(!this.isObject(context)) context = this;
-        return function(){ return func.apply(context, arguments); };
+        var boundFunc = function(){ return func.apply(context, arguments); };
+        boundFunc.bound = true; return boundFunc;
     },
     auraCallback: function(func, context){
-        return $A.getCallback(this.callback(func, context));
+        if(!this.isFunction(func)) func = this.identity;
+        if(func.aurabound) return func;
+        var boundFunc = $A.getCallback(this.callback(func, context));
+        boundFunc.aurabound = true; return boundFunc;
     },
     each: function(obj, iteratee, context){
         iteratee = this.callback(iteratee, context);
@@ -140,7 +145,7 @@
         return this.findIndex(obj, (value) => { return value === item; }) >= 0;
     },
     pluck: function(obj, key) {
-        return this.map(obj, this.property(key));
+        return this.isArrayLike(obj) ? this.map(obj, this.property(key)) : this.propertyOf(obj)(key);
     },
     size: function(obj) {
         return this.isArray(obj) ? obj.length : this.isObject(obj) ? this.keys(obj).length : 0;
@@ -256,8 +261,8 @@
     },
     wrapPromise: function(promise){
         promise = { original: promise, originalThen: promise.then };
-        promise.then = this.auraCallback(function(){ 
-            var nextPromise = promise.originalThen.apply(promise.original, this.map(arguments, this.callback));
+        promise.then = this.callback(function(){ 
+            var nextPromise = promise.originalThen.apply(promise.original, this.map(arguments, this.auraCallback));
             return this.wrapPromise(nextPromise);
         });
         return promise;
@@ -283,5 +288,23 @@
                 return defer;
             }
         };
+    },
+
+    //other utility methods
+    log: function(cmp){ 
+        console.log.apply(console, this.extend([cmp.getConcreteComponent().getName()], this.rest(arguments, 1))); 
+    },
+    error: function(cmp){ 
+        console.error.apply(console, this.extend([cmp.getConcreteComponent().getName()], this.rest(arguments, 1))); 
+    },
+    parseJSON: function(data, defaultValue){
+        if(this.isString(data)) return JSON.parse(data); 
+        else if(this.isUndefinedOrNull(data)) return defaultValue;
+        else return data;
+    },
+    stringifyJSON: function(data){
+        if(this.isUndefinedOrNull(data)) return '';
+        else if(!this.isString(data)) return JSON.stringify(data, null, '\t'); 
+        else return data;
     }
 })

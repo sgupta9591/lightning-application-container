@@ -16,7 +16,7 @@
 	},
 	setCurrentComponent: function(cmp, cmpName, params){
 		this.log(cmp, "Navigating to " + cmpName, params);
-		this.createComponent(cmpName, params, (newCmp) => {
+		this.createComponent(cmpName, params).then((newCmp) => {
 			var oldCmp = cmp.get("v.componentInstance");
 			if(oldCmp && oldCmp.destroy) oldCmp.destroy(); 
 			cmp.set("v.componentName", cmpName);
@@ -37,14 +37,12 @@
 	},
 
 	//data service
-	dataService: null,
+	dataService: null, dataServicePromise: null,
 	initDataService: function(cmp){
-		var defer = this.deferred();
-		if(this.dataService) defer.resolve(this.dataService); 
-        else {
-        	this.log(cmp, "Initiating Data Service");
-        	this.createComponent("DataService", {}, (newCmp) => { defer.resolve(this.dataService = newCmp); });
-        }
-        return defer.promise;
+		if(this.dataService) return this.deferredWithValue(this.dataService);
+		if(this.dataServicePromise) return this.dataServicePromise;
+    	this.log(cmp, "Initiating Data Service");
+    	return this.dataServicePromise = this.createComponent("DataService", {})
+    	.then((newCmp) => { this.dataServicePromise = null; return this.dataService = newCmp; });
 	}
 })
